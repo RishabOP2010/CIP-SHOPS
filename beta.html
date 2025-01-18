@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BVPC - Beta Verification Portal</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #00ff00, #00bfff, #8a2be2);
+      background-size: 400% 400%;
+      animation: gradientBG 10s ease infinite;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    @keyframes gradientBG {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .square {
+      position: relative;
+      width: 600px;
+      height: 700px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Animated Circle Behind Text */
+    .square::before {
+      content: '';
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      border: 10px solid #fff;
+      border-radius: 50%;
+      animation: rotateCircle 6s linear infinite, moveCircle 6s ease-in-out infinite;
+      z-index: 0;
+    }
+
+    @keyframes rotateCircle {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes moveCircle {
+      0% {
+        top: -20%;
+        left: -20%;
+      }
+      50% {
+        top: 20%;
+        left: 20%;
+      }
+      100% {
+        top: -20%;
+        left: -20%;
+      }
+    }
+
+    .login {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+      color: #222;
+    }
+
+    h2 {
+      font-size: 30px;
+      margin-bottom: 10px;
+      color: #222;
+    }
+
+    p {
+      font-size: 16px;
+      margin-bottom: 20px;
+      color: #222;
+    }
+
+    .inputBx {
+      margin: 15px 0;
+    }
+
+    .inputBx input {
+      width: 300px;
+      padding: 10px;
+      border: none;
+      border-radius: 20px;
+      outline: none;
+      color: #222;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: linear-gradient(to right, #ff7f50, #ff4500);
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .instruction {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #222;
+    }
+
+    .error {
+      color: red;
+      margin-top: 10px;
+    }
+
+    /* New Text Styling */
+    .fab-version {
+      font-size: 18px;
+      margin-top: 30px;
+      color: #fff;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+<body>
+  <div class="square">
+    <div class="login">
+      <h1>AI is the Next Generation</h1>
+      <p>Welcome to CIPai - the cutting-edge Beta Verification Portal.</p>
+      <h2>BVPC</h2>
+      <p>BETA VERIFICATION PORTAL CIP</p>
+      <div class="inputBx">
+        <input type="text" id="betaId" placeholder="Beta ID">
+      </div>
+      <div class="inputBx">
+        <input type="password" id="betaPass" placeholder="Beta Pass">
+      </div>
+      <button onclick="enableBetaAccess()">Enable Beta Access</button>
+      <div class="instruction">
+        <p>Contact Admin to get your Beta ID and Pass.</p>
+      </div>
+      <div id="errorMsg" class="error"></div>
+    </div>
+    <!-- Updated Text "CIPai on MAR4.0.4 or 44.0" -->
+    <div class="fab-version">
+      CIPai on MAR4.0.4 or 44.0
+    </div>
+  </div>
+
+  <script>
+    const validCredentials = [
+      "BTA32U",
+      "OZL53K",
+      "8862VZ",
+      "1WQUPK",
+      "XXAO98",
+      "997ESC",
+      "JSTLI38",
+      "YUKO95"
+    ];
+
+    let failedAttempts = 0;
+    let isBlocked = false;
+
+    function enableBetaAccess() {
+      const betaId = document.getElementById("betaId").value.trim();
+      const betaPass = document.getElementById("betaPass").value.trim();
+      const errorMsg = document.getElementById("errorMsg");
+
+      if (isBlocked) {
+        errorMsg.textContent = "Access blocked. Please try again later.";
+        return;
+      }
+
+      if (validCredentials.includes(betaId) && validCredentials.includes(betaPass)) {
+        window.location.href = "https://docs.google.com/forms/d/e/1FAIpQLSd8-4JIhgqkx6viAMX2IlLZwpK4OJgl6ndd-fcPeQGFiaVKdA/viewform";
+      } else {
+        failedAttempts++;
+        errorMsg.textContent = "Incorrect input given. Try again.";
+        
+        if (failedAttempts >= 3) {
+          isBlocked = true;
+          errorMsg.textContent = "Too many failed attempts. Access blocked for 30 minutes.";
+          setTimeout(() => {
+            failedAttempts = 0;
+            isBlocked = false;
+            errorMsg.textContent = "";
+          }, 30 * 60 * 1000); // 30 minutes in milliseconds
+        }
+      }
+    }
+  </script>
+</body>
+</html>

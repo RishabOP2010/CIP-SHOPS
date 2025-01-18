@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CIP SERVICES AND ACCESSORIES STORE</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+            overflow-x: hidden;
+            background: linear-gradient(45deg, #ff8c00, #ff007f, #7a00ff, #00c6ff, #00ff64);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+        header {
+            text-align: center;
+            padding: 1rem 0;
+            background-color: #111;
+            position: relative;
+        }
+        header .scrolling-text {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        header .scrolling-text span {
+            display: inline-block;
+            padding-left: 100%;
+            animation: scrollText 10s linear infinite;
+        }
+        @keyframes scrollText {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+        nav {
+            text-align: center;
+            padding: 0.5rem 0;
+            background-color: transparent;
+            background-image: linear-gradient(45deg, #ff8c00, #ff007f, #7a00ff, #00c6ff, #00ff64);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 1rem;
+            font-size: 1.1rem;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .hamburger {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        .hamburger div {
+            width: 30px;
+            height: 5px;
+            background-color: white;
+            margin: 5px 0;
+            transition: all 0.3s;
+        }
+        .hamburger.active div:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger.active div:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active div:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            height: 100%;
+            width: 250px;
+            background-color: #222;
+            overflow: hidden;
+            transition: left 0.3s ease-in-out;
+            z-index: 1000;
+        }
+        .sidebar.active {
+            left: 0;
+        }
+        .sidebar a {
+            display: block;
+            padding: 1rem;
+            text-decoration: none;
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+            border-bottom: 1px solid #444;
+        }
+        .sidebar a:hover {
+            background-color: #444;
+        }
+        .container {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: auto;
+        }
+        .product-box {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: space-between;
+        }
+        .product-box .product {
+            background-color: #111;
+            padding: 1rem;
+            border-radius: 5px;
+            text-align: center;
+            flex: 1;
+            min-width: 250px;
+            transition: transform 0.3s ease-in-out;
+        }
+        .product-box .product:hover {
+            transform: translateY(-10px);
+        }
+        .product-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+        .product-coming-soon {
+            font-size: 1rem;
+            font-style: italic;
+            color: #f0ad4e;
+            margin-top: 1rem;
+        }
+        .product-actions {
+            margin-top: 1rem;
+        }
+        .product-actions select {
+            padding: 0.5rem;
+        }
+        .cart-display {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #222;
+            color: #fff;
+            padding: 1rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            width: 350px;
+            max-height: 400px;
+            overflow-y: auto;
+            display: none;
+            transition: all 0.3s ease-in-out;
+        }
+        .cart-display h4 {
+            margin-top: 0;
+        }
+        .cart-display ul {
+            list-style: none;
+            padding: 0;
+        }
+        .cart-display ul li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #444;
+        }
+        .cart-display ul li .remove-item {
+            color: red;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .checkout-button {
+            background-color: #007bff;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease-in-out;
+        }
+        .checkout-button:hover {
+            background-color: #218838;
+        }
+        .popup {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            display: none;
+            z-index: 1000;
+        }
+        .loop-text {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 0.8rem;
+            margin-top: 2rem;
+            color: #aaa;
+            overflow: hidden;
+            white-space: nowrap;
+            animation: scrollText 10s linear infinite;
+        }
+        .pie-chart-container {
+            text-align: center;
+            margin: 2rem auto;
+        }
+        #pie-chart {
+            max-width: 400px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>CIP SERVICES AND ACCESSORIES STORE</h1>
+        <p>ORDER YOUR ITEM FROM US TENSION FREE AS WE ASSURE 100% SAFTY</p>
+        <div class="scrolling-text">
+            <span>EXPECTED ORDER DELIVERY AT WEDNESDAY AND FRIDAY OF WORKING DAYS</span>
+        </div>
+    </header>
+
+    <div class="hamburger" onclick="toggleSidebar()">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+    <nav class="sidebar" id="sidebar">
+        <a href="index.html">ONLINE CAFE</a>
+        <a href="contact.html">CONTACT US</a>
+        <a href="updates.html">UPDATES</a>
+        <a href="policy.html">OUR POLICY</a>
+    </nav>
+
+    <div class="container">
+        <!-- Services Section -->
+        <h2>Services</h2>
+        <div class="product-box">
+            <div class="product">
+                <div class="product-title">PC Building</div>
+                <button onclick="redirectToWhatsApp('PC Building')">Booking</button>
+            </div>
+
+            <div class="product">
+                <div class="product-title">Laptop Servicing & Upgrading</div>
+                <button onclick="redirectToWhatsApp('Laptop Servicing & Upgrading')">Booking</button>
+            </div>
+
+            <div class="product">
+                <div class="product-title">Graphic Designing</div>
+                <select onchange="redirectToWhatsApp('Graphic Designing', this.value)">
+                    <option value="YT Thumbnail">YT Thumbnail</option>
+                    <option value="YT Logo">YT Logo</option>
+                    <option value="YT Banner">YT Banner</option>
+                    <option value="Logo">Logo</option>
+                    <option value="Poster">Poster</option>
+                    <option value="Web Development">Web Development</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Accessories Section -->
+        <h2>Accessories</h2>
+        <div class="product-box">
+            <div class="product">
+                <div class="product-title">Finger Sleeves</div>
+                <select id="finger-sleeves-quantity">
+                    <option value="20">1 Sleeve - ₹20</option>
+                    <option value="40">2 Sleeves - ₹40</option>
+                    <option value="60">3 Sleeves - ₹60</option>
+                    <option value="80">4 Sleeves - ₹80</option>
+                </select>
+                <button onclick="addToCart('Finger Sleeves', parseFloat(document.getElementById('finger-sleeves-quantity').value) + 25)">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <div class="product-title">Gaming Triggers</div>
+                <select id="gaming-triggers-quantity">
+                    <option value="50">1 Trigger - ₹50</option>
+                    <option value="100">2 Triggers - ₹100</option>
+                </select>
+                <button onclick="addToCart('Gaming Triggers', parseFloat(document.getElementById('gaming-triggers-quantity').value) + 25)">Add to Cart</button>
+            </div>
+        </div>
+
+        <!-- Government Services Section -->
+        <h2>Government Services</h2>
+        <div class="product-box">
+            <div class="product">
+                <div class="product-title">PAN Card</div>
+                <button onclick="redirectToWhatsApp('PAN Card Application')">Apply Now</button>
+            </div>
+
+            <div class="product">
+                <div class="product-title">UIDAI Aadhaar Card</div>
+                <button onclick="redirectToWhatsApp('UIDAI Aadhaar Card Application')">Apply Now</button>
+            </div>
+
+            <div class="product">
+                <div class="product-title">WB Birth Certificate</div>
+                <button onclick="redirectToWhatsApp('WB Birth Certificate Application')">Apply Now</button>
+            </div>
+
+            <div class="product">
+                <div class="product-title">Driving License</div>
+                <button onclick="redirectToWhatsApp('Driving License Application')">Apply Now</button>
+            </div>
+
+            <!-- New Services Added -->
+            <div class="product">
+                <div class="product-title">Train Ticket Booking</div>
+                <button onclick="redirectToWhatsApp('Train Ticket Booking')">Book Now</button>
+            </div>
+
+            <div class="product">
+                <div class="product-title">Flight Ticket Booking</div>
+                <button onclick="redirectToWhatsApp('Flight Ticket Booking')">Book Now</button>
+            </div>
+        </div>
+
+        <!-- Pie Chart Section -->
+        <div class="pie-chart-container">
+            <h3>Order Success Rate</h3>
+            <canvas id="pie-chart"></canvas>
+            <p>Total Deliveries: 149</p>
+        </div>
+    </div>
+
+    <div class="cart-display" id="cart-display">
+        <h4>Your Cart</h4>
+        <ul id="cart-items"></ul>
+        <div><strong>Total: ₹<span id="total-price">0</span></strong></div>
+        <button class="checkout-button" onclick="checkout()">Buy Now</button>
+    </div>
+
+    <div class="popup" id="popup"></div>
+
+    <div class="loop-text">
+        <p>For any queries, please contact us via WhatsApp!</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        let cart = [];
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const hamburger = document.querySelector('.hamburger');
+            sidebar.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        function addToCart(product, price) {
+            cart.push({ product, price });
+            updateCartDisplay();
+            showPopup(`Added ${product} to the cart!`);
+        }
+
+        function updateCartDisplay() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            cartItemsContainer.innerHTML = '';
+            let totalPrice = 0;
+            cart.forEach(item => {
+                const li = document.createElement('li');
+                li.innerHTML = `${item.product} - ₹${item.price} <span class="remove-item" onclick="removeItem('${item.product}')">Remove</span>`;
+                cartItemsContainer.appendChild(li);
+                totalPrice += item.price;
+            });
+            document.getElementById('total-price').textContent = totalPrice;
+            if (cart.length === 0) {
+                document.getElementById('cart-display').style.display = 'none';
+            } else {
+                document.getElementById('cart-display').style.display = 'block';
+            }
+        }
+
+        function removeItem(product) {
+            cart = cart.filter(item => item.product !== product);
+            updateCartDisplay();
+        }
+
+        function checkout() {
+            const totalPrice = cart.reduce((sum, item) => sum + item.price, 0);
+            const cartItemsList = cart.map(item => `${item.product}: ₹${item.price}`).join('\n');
+            alert(`Your cart: \n${cartItemsList}\n\nTotal Price: ₹${totalPrice}`);
+            cart = [];
+            updateCartDisplay();
+        }
+
+        function showPopup(message) {
+            const popup = document.getElementById('popup');
+            popup.textContent = message;
+            popup.style.display = 'block';
+            setTimeout(() => popup.style.display = 'none', 3000);
+        }
+
+        function redirectToWhatsApp(service, value) {
+            let message = `Hello, I'm interested in ${service}`;
+            if (value) {
+                message += ` with ${value}`;
+            }
+            const phoneNumber = '9022626612';
+            const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+
+        // Pie chart data for success rate
+        const ctx = document.getElementById('pie-chart').getContext('2d');
+        new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Success', 'Failed'],
+                datasets: [{
+                    data: [135, 14], 
+                    backgroundColor: ['#28a745', '#dc3545'],
+                    borderColor: '#fff',
+                    borderWidth: 1
+                }]
+            }
+        });
+    </script>
+</body>
+</html>

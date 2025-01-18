@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CDH INTERNET POINT | Your One-Stop Shop</title>
+    <style>
+        /* Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        header {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background-color: #111;
+        }
+        .logo {
+            height: 60px;
+            width: auto;
+            margin-right: 20px;
+        }
+        .hamburger {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            z-index: 1001;
+            transition: transform 0.3s ease;
+        }
+        .hamburger div {
+            width: 30px;
+            height: 5px;
+            background-color: white;
+            margin: 5px 0;
+            transition: transform 0.3s ease;
+        }
+        .hamburger:hover {
+            transform: rotate(45deg);
+        }
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            height: 100%;
+            width: 250px;
+            background-color: #222;
+            overflow: hidden;
+            transition: left 0.3s ease;
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+        .sidebar.active {
+            left: 0;
+        }
+        .sidebar a {
+            display: block;
+            padding: 1rem;
+            text-decoration: none;
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+            border-bottom: 1px solid #444;
+        }
+        .sidebar a:hover {
+            background-color: #444;
+        }
+        .container {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: auto;
+        }
+        .category {
+            background-color: #111;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            border-radius: 5px;
+            transition: transform 0.3s ease;
+        }
+        .category-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 0;
+            transition: color 0.3s ease;
+        }
+        .category-title:hover {
+            color: #007bff;
+        }
+        .category-content {
+            display: none;
+            margin-top: 1rem;
+        }
+        .category-content.active {
+            display: block;
+        }
+        .product-actions input, .product-actions select, .product-actions button {
+            margin-right: 0.5rem;
+            padding: 0.5rem;
+            background-color: #222;
+            color: #fff;
+            border: 1px solid #444;
+        }
+        .product-actions button {
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .product-actions button:hover {
+            background-color: #0056b3;
+        }
+        .product-actions select {
+            width: auto;
+        }
+        .cart-display {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #222;
+            color: #fff;
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            width: 350px;
+            max-height: 500px;
+            overflow-y: auto;
+            display: none;
+        }
+        .cart-display h4 {
+            margin-top: 0;
+            text-align: center;
+            background-color: #444;
+            padding: 0.5rem;
+            border-radius: 5px;
+        }
+        .cart-display ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .cart-display ul li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #444;
+        }
+        .cart-display ul li span {
+            font-size: 1rem;
+        }
+        .cart-display ul li button {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 0.3rem 0.5rem;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        .cart-display .total {
+            margin-top: 10px;
+            text-align: center;
+        }
+        .buy-now-button {
+            background-color: #28a745;
+            color: white;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 1rem;
+        }
+        .buy-now-button:hover {
+            background-color: #218838;
+        }
+        .membership-section {
+            margin-top: 2rem;
+            background-color: #333;
+            padding: 1rem;
+            border-radius: 5px;
+        }
+        .membership-section h3 {
+            margin-bottom: 1rem;
+        }
+        .membership-section p {
+            font-size: 1.1rem;
+        }
+        .membership-button {
+            background-color: #007bff;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .membership-button:hover {
+            background-color: #0056b3;
+        }
+        .plan-display {
+            display: none;
+            margin-top: 2rem;
+            text-align: center;
+        }
+        .plan-display img {
+            max-width: 100%;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="cip.logo.png" alt="CDH Logo" class="logo">
+        <div>
+            <h1>CDH INTERNET POINT</h1>
+            <p>Your One-Stop Online E-Commerce and Servicing Destination!</p>
+        </div>
+    </header>
+
+    <div class="hamburger" onclick="toggleSidebar()">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+    <nav class="sidebar" id="sidebar">
+        <a href="contact.html">Contact Us</a>
+        <a href="offline.html">Service and Accessories</a>
+        <a href="update.html">UPDATES</a>
+        <a href="policy.html">OUR POLICY</a>
+    </nav>
+
+    <div class="container">
+        <!-- Redeem Code Section -->
+        <div class="category" id="redeem-code">
+            <h2 class="category-title" onclick="toggleCategory(this)">Redeem Code</h2>
+            <div class="category-content">
+                <div class="product-actions">
+                    <input type="number" id="redeem-amount" placeholder="Enter Custom Amount" min="1">
+                    <button onclick="addToCart('Redeem Code', getRedeemDetails())">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Recharge Section -->
+        <div class="category" id="mobile-recharge">
+            <h2 class="category-title" onclick="toggleCategory(this)">Mobile Recharge</h2>
+            <div class="category-content">
+                <div class="product-actions">
+                    <input type="text" id="mobile-number" placeholder="Enter Mobile Number">
+                    <select id="mobile-operator">
+                        <option value="jio">Jio</option>
+                        <option value="bsnl">BSNL</option>
+                        <option value="vi">Vi</option>
+                        <option value="airtel">Airtel</option>
+                    </select>
+                    <input type="text" id="custom-plan" placeholder="Enter Custom Plan">
+                    <button onclick="redirectToWhatsApp()">Recharge Now</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fiber Recharge Category -->
+        <div class="category" id="fiber-recharge">
+            <h2 class="category-title" onclick="toggleCategory(this)">Fiber Recharge</h2>
+            <div class="category-content">
+                <div class="product-actions">
+                    <input type="text" id="fiber-id" placeholder="Enter Fiber ID">
+                    <select id="fiber-operator">
+                        <option value="jiofiber">Jio Fiber</option>
+                        <option value="airtelfiber">Airtel Fiber</option>
+                        <option value="bsnlfiber">BSNL Fiber</option>
+                    </select>
+                    <select id="fiber-recharge-plan">
+                        <option value="500">₹500</option>
+                        <option value="1000">₹1000</option>
+                        <option value="1500">₹1500</option>
+                    </select>
+                    <button onclick="redirectToWhatsApp()">Recharge Now</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Online Money Transfer Section -->
+        <div class="category" id="money-transfer">
+            <h2 class="category-title" onclick="toggleCategory(this)">Online Money Transfer</h2>
+            <div class="category-content">
+                <div class="product-actions">
+                    <input type="number" id="transfer-amount" placeholder="Enter Amount (₹1 - ₹20,000)" min="1" max="20000">
+                    <button onclick="redirectToWhatsAppWithTransfer()">Transfer Now</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Memberships Section -->
+        <div class="membership-section" id="membership-section">
+            <h3>Buy Our Membership for Your Own Benefits</h3>
+            <p>Buy our membership and get the best discounts! Don't waste time, check plans now.</p>
+            <button class="membership-button" onclick="toggleMembershipPlan()">Check Now</button>
+
+            <div class="plan-display" id="plan-display">
+                <img src="PLANS.jpg" alt="Membership Plan">
+                <br>
+                <button class="membership-button" onclick="redirectToWhatsApp()">Get Now</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Display -->
+    <div class="cart-display" id="cart-display">
+        <h4>Cart</h4>
+        <ul id="cart-items"></ul>
+        <div class="total">
+            <strong>Total Amount: ₹<span id="total-amount">0</span></strong>
+        </div>
+        <button class="buy-now-button" onclick="checkout()">Checkout</button>
+    </div>
+
+    <script>
+        // Cart array to store the items
+        let cart = [];
+
+        // Function to toggle sidebar visibility
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+        }
+
+        // Function to toggle category visibility
+        function toggleCategory(element) {
+            const content = element.nextElementSibling;
+            content.classList.toggle('active');
+        }
+
+        // Function to redirect to WhatsApp
+        function redirectToWhatsApp() {
+            window.location.href = "https://wa.me/9022626612";
+        }
+
+        // Function to redirect with money transfer details
+        function redirectToWhatsAppWithTransfer() {
+            const amount = document.getElementById('transfer-amount').value;
+            if (amount && amount >= 1 && amount <= 20000) {
+                window.location.href = `https://wa.me/9022626612?text=I%20want%20to%20transfer%20₹${amount}`;
+            } else {
+                alert('Please enter a valid amount between ₹1 and ₹20,000.');
+            }
+        }
+
+        // Function to handle adding to cart
+        function addToCart(type, details) {
+            const item = { type, details };
+            cart.push(item);
+            updateCart();
+        }
+
+        // Function to get redeem details
+        function getRedeemDetails() {
+            const redeemAmount = document.getElementById('redeem-amount').value;
+            return `Redeem Amount: ₹${redeemAmount}`;
+        }
+
+        // Function to update the cart display
+        function updateCart() {
+            let cartHtml = '';
+            let totalAmount = 0;
+            cart.forEach((item, index) => {
+                cartHtml += 
+                    `<li>
+                        ${item.details}
+                        <button onclick="removeFromCart(${index})">Remove</button>
+                    </li>`;
+                totalAmount += parseFloat(item.details.match(/₹(\d+)/)[1]);  // Extract amount from details
+            });
+
+            document.getElementById('cart-items').innerHTML = cartHtml;
+            document.getElementById('total-amount').textContent = totalAmount;
+            document.getElementById('cart-display').style.display = cart.length > 0 ? 'block' : 'none';
+        }
+
+        // Function to remove item from cart
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCart();
+        }
+
+        // Function to handle checkout
+        function checkout() {
+            const totalAmount = document.getElementById('total-amount').textContent;
+            if (totalAmount > 0) {
+                window.location.href = `https://wa.me/9022626612?text=I%20want%20to%20checkout%20with%20total%20amount%20of%20₹${totalAmount}`;
+            } else {
+                alert("Your cart is empty!");
+            }
+        }
+
+        // Function to toggle membership plan visibility
+        function toggleMembershipPlan() {
+            const planDisplay = document.getElementById('plan-display');
+            planDisplay.style.display = planDisplay.style.display === 'block' ? 'none' : 'block';
+        }
+    </script>
+</body>
+</html>

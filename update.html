@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Updates</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #fff;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            background-size: 400% 400%;
+            animation: gradientBG 10s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .updates-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .updates-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        .update {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            margin-bottom: 15px;
+            padding: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .update:hover {
+            transform: scale(1.05);
+        }
+
+        .update .update-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .update .new-update {
+            background-color: #28a745;
+            color: #fff;
+            padding: 8px 16px;
+            font-size: 14px;
+            border-radius: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .update .apply-button {
+            background-color: #ff6347;
+            color: white;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 25px;
+            font-weight: bold;
+            text-decoration: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .update .apply-button:hover {
+            background-color: #e04a3a;
+            transform: translateY(-3px);
+        }
+
+        .go-back-button {
+            background-color: #28a745;
+            color: white;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 25px;
+            font-weight: bold;
+            text-decoration: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .go-back-button:hover {
+            background-color: #218838;
+            transform: translateY(-3px);
+        }
+
+        .no-update {
+            font-size: 16px;
+            font-weight: normal;
+            color: #ddd;
+            margin-top: 20px;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .no-update .no-update-text {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 8px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="updates-section">
+        <div class="updates-title">Latest Updates</div>
+        
+        <div class="update">
+            <div>
+                <div class="update-title">Join Beta Testing</div>
+                <div class="new-update">MAR4.0.4 BETA UPDT</div>
+            </div>
+            <a href="beta.html" class="apply-button">Join Now</a>
+        </div>
+
+        <div class="go-back">
+            <a href="index.html" class="go-back-button">Go Back</a>
+        </div>
+
+        <div class="no-update">
+            <div class="no-update-text">No updates till now</div>
+        </div>
+    </div>
+</body>
+</html>

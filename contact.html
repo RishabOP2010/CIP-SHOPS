@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CDH INTERNET POINT - Contact Us & Our Staff</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(120deg, #89f7fe, #66a6ff);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #fff;
+            width: 100%;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin: 0;
+        }
+
+        header p {
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: #ffffff;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        .return-btn {
+            display: block;
+            text-align: center;
+            background: #66a6ff;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+
+        .return-btn:hover {
+            background: #4e8cd6;
+        }
+
+        .contact-form h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .contact-form p {
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-top: 15px;
+            color: #333;
+        }
+
+        input[type="text"], input[type="email"], input[type="file"], select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        button {
+            margin-top: 20px;
+            width: 100%;
+            background: #66a6ff;
+            border: none;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: #4e8cd6;
+        }
+
+        #school-container, #id-container {
+            margin-top: 15px;
+            display: none;
+        }
+
+        .our-staff {
+            margin-top: 40px;
+        }
+
+        .our-staff h2 {
+            font-size: 1.5rem;
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .our-staff h2 .star-circle {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: gold;
+            color: white;
+            font-weight: bold;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .our-staff h2 .star-circle:hover {
+            transform: scale(1.2);
+        }
+
+        .staff-list {
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+
+        .staff-list p {
+            margin: 5px 0;
+        }
+
+        .owner {
+            color: red;
+            font-weight: bold;
+        }
+
+        .bh {
+            color: yellow;
+            font-weight: bold;
+        }
+
+        .bm {
+            color: green;
+            font-weight: bold;
+        }
+
+        .abm {
+            color: purple;
+            font-weight: bold;
+        }
+
+        .collector {
+            color: orange;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>CDH INTERNET POINT</h1>
+        <p>This page is for general feedback and complaint purposes.</p>
+    </header>
+
+    <div class="container">
+        <a href="index.html" class="return-btn">Return Back</a>
+
+        <div class="contact-form">
+            <h2>Contact Us</h2>
+            <p>If you have any questions or need assistance, please feel free to reach out. We're here to help!</p>
+
+            <form id="contact-form" action="#" method="POST" enctype="multipart/form-data">
+                <label for="first-name">First Name:</label>
+                <input type="text" id="first-name" name="first_name" required>
+
+                <label for="middle-name">Middle Name (if applicable):</label>
+                <input type="text" id="middle-name" name="middle_name">
+
+                <label for="last-name">Last Name:</label>
+                <input type="text" id="last-name" name="last_name" required>
+
+                <label for="location">Location:</label>
+                <select id="location" name="location" required onchange="showSchools()">
+                    <option value="">Select Your Location</option>
+                    <option value="chakdah">City Chakdah</option>
+                    <option value="bongaon">City Bongaon</option>
+                    <option value="kalyani">City Kalyani</option>
+                    <option value="ranaghat">City Ranaghat</option>
+                    <option value="simurali">Vill Simurali</option>
+                </select>
+
+                <div id="school-container">
+                    <label for="school-name">School Name:</label>
+                    <select id="school-name" name="school_name"></select>
+
+                    <label for="school-type">School/College Type:</label>
+                    <select id="school-type" name="school_type" onchange="showIdInput()">
+                        <option value="">Select Type</option>
+                        <option value="government">Government-Based Organization</option>
+                        <option value="private">Private Trust Organization</option>
+                    </select>
+                </div>
+
+                <div id="id-container">
+                    <label for="id-input">ID:</label>
+                    <input type="text" id="id-input" name="id_input">
+                </div>
+
+                <label for="standard">Standard:</label>
+                <select id="standard" name="standard" required>
+                    <option value="primary">Primary (below VI)</option>
+                    <option value="vi">VI</option>
+                    <option value="vii">VII</option>
+                    <option value="viii">VIII</option>
+                    <option value="ix">IX</option>
+                    <option value="x">X</option>
+                    <option value="xi-science">XI - Science</option>
+                    <option value="xi-commerce">XI - Commerce</option>
+                    <option value="xi-arts">XI - Arts (Humanities)</option>
+                    <option value="xii-science">XII - Science</option>
+                    <option value="xii-commerce">XII - Commerce</option>
+                    <option value="xii-arts">XII - Arts (Humanities)</option>
+                    <option value="passouts">Passouts (after XII)</option>
+                </select>
+
+                <label for="email">Email ID:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="message">Feedback/Problem:</label>
+                <textarea id="message" name="message" rows="4" required></textarea>
+
+                <label for="photo">Attach Photo (optional):</label>
+                <input type="file" id="photo" name="photo" accept="image/*">
+
+                <button type="button" onclick="redirectToWhatsApp()">Send Message</button>
+            </form>
+        </div>
+
+        <div class="our-staff">
+            <h2>Our Staff <a href="reviews.html" class="star-circle">★</a></h2>
+
+            <div class="staff-list">
+                <p>OWNER: <span class="owner">RISHAB DAS</span></p>
+                <p>BH (Branch Head): <span class="bh">ANKUSH MUKHERJEE</span></p>
+
+                <h3>Chakdah Branch:</h3>
+                <p>BM: <span class="bm">HRIDDHIMAN SETT</span></p>
+                <p>ABM: <span class="abm">SASMIT MONDAL</span></p>
+
+                <h3>Bongaon Branch:</h3>
+                <p>BM: <span class="bm">SANDIPTO BISWAS</span></p>
+                <p>ABM: <span class="abm">SAMBUDDHA BISWAS</span></p>
+
+                <h3>Simurali Branch:</h3>
+                <p>BM: <span class="bm">ARITRA BISWAS</span></p>
+                <p>ABM: <span class="abm">SOURAV BISWAS</span></p>
+                <p>Collector: <span class="collector">SREYAN MITRA</span></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showSchools() {
+            const location = document.getElementById('location').value;
+            const schoolContainer = document.getElementById('school-container');
+            const schoolSelect = document.getElementById('school-name');
+            schoolSelect.innerHTML = ''; // Clear previous options
+
+            let schools = [];
+            switch (location) {
+                case 'chakdah':
+                    schools = [
+                        "SATISH CHANDRA MEMORIAL SCHOOL", "SIMURALI MODEL SCHOOL", "RAMLAL ACADEMY OLD",
+                        "RAMLAL ACADEMY NEW", "PURBACHAL BOYS", "PURBACHAL GIRLS", "BAPUJI BOYS", 
+                        "BAPUJI GIRLS", "JRS PUBLIC SCHOOL", "JNM MEDICAL COLLEGE AND HOSPITAL", 
+                        "HAPPYHOME PMR", "DHANICHA PUBLIC SCHOOL", "BROADWAY ACCENT SCHOOL", 
+                        "ST MARY ICSE AND CBSE"
+                    ];
+                    break;
+                case 'ranaghat':
+                    schools = [
+                        "RANAGHAT MODEL SCHOOL", "NARAYANA SCHOOLS RNG", "ST MARY ICSE", 
+                        "ST MARY CBSE", "ST MARY WBBSE", "ST MARY ISC", "RANAGHAT VIDYAMANDIR"
+                    ];
+                    break;
+                case 'kalyani':
+                    schools = [
+                        "JAGULI NETAJI VIDYAPITH", "NARAYANA SCHOOLS KLY", "DELHI WORLD PUBLIC SCHOOL",
+                        "LITTLE ANGELS", "ST STEPHEN KLY", "KL ENGLISH MEDIUM SCHOOL", "KALYANI UNIVERSITY"
+                    ];
+                    break;
+                case 'bongaon':
+                    schools = [
+                        "GOPALNAGAR HS", "SANTA KIDS", "GREENFIELD PUBLIC SCHOOL", "BONGAON HS BOYS", 
+                        "JDS HIGH SCHOOL", "STARLING INTERNATIONAL SCHOOL"
+                    ];
+                    break;
+                case 'simurali':
+                    schools = [
+                        "SATISH CHANDRA MEMORIAL SCHOOL", "SIMURALI MODEL SCHOOL", "RAMLAL ACADEMY OLD",
+                        "RAMLAL ACADEMY NEW", "PURBACHAL BOYS", "PURBACHAL GIRLS", "BAPUJI BOYS", 
+                        "BAPUJI GIRLS", "JRS PUBLIC SCHOOL", "JNM MEDICAL COLLEGE AND HOSPITAL", 
+                        "HAPPYHOME PMR", "DHANICHA PUBLIC SCHOOL", "BROADWAY ACCENT SCHOOL", 
+                        "ST MARY ICSE AND CBSE"
+                    ];
+                    break;
+                default:
+                    schoolContainer.style.display = 'none';
+                    return;
+            }
+
+            schools.forEach(school => {
+                const option = document.createElement('option');
+                option.value = school.toLowerCase().replace(/\s+/g, '-');
+                option.textContent = school;
+                schoolSelect.appendChild(option);
+            });
+
+            schoolContainer.style.display = 'block';
+        }
+
+        function showIdInput() {
+            const schoolType = document.getElementById('school-type').value;
+            const idContainer = document.getElementById('id-container');
+            const idInput = document.getElementById('id-input');
+
+            if (schoolType === 'government') {
+                idContainer.style.display = 'block';
+                idInput.placeholder = 'Enter School/College ID';
+            } else if (schoolType === 'private') {
+                idContainer.style.display = 'block';
+                idInput.placeholder = 'Enter Siksha ID';
+            } else {
+                idContainer.style.display = 'none';
+            }
+        }
+
+        function redirectToWhatsApp() {
+            const message = encodeURIComponent('Hello, I need assistance with the following issue:');
+            const url = `https://wa.me/9022626612?text=${message}`;
+            window.location.href = url;
+        }
+    </script>
+</body>
+</html>
